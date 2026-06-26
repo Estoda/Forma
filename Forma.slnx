@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Forma.Api/Forma.Api.csproj" />
+  <Project Path="Forma.Application/Forma.Application.csproj" />
+  <Project Path="Forma.Domain/Forma.Domain.csproj" />
+  <Project Path="Forma.Infrastructure/Forma.Infrastructure.csproj" />
+</Solution>
