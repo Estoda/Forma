@@ -1,4 +1,7 @@
+using Forma.Domain.Interfaces;
 using Forma.Infrastructure.Persistence;
+using Forma.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -12,6 +15,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<FormaDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
