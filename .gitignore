@@ -13,9 +13,3 @@ obj/
 
 # Logs
 *.log
-
-# Local secrets / environment-specific config
-appsettings.Development.json
-appsettings.Local.json
-*.env
-.env
