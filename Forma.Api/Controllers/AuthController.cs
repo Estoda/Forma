@@ -15,6 +15,20 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
+    [HttpPost("send-otp")]
+    public async Task<IActionResult> SendOtp(SendOtpRequest request)
+    {
+        await _authService.SendOtpAsync(request.Email);
+        return Ok(new { message = "OTP sent successfully." });
+    }
+
+    [HttpPost("verify-otp")]
+    public async Task<IActionResult> VerifyOtp(VerifyOtpRequest request)
+    {
+        await _authService.VerifyOtpAsync(request.Email, request.Otp);
+        return Ok(new { message = "Email verified successfully." });
+    }
+
     [HttpPost("register")]
     public async Task<ActionResult<AuthResponse>> Register(RegisterRequest request)
     {

@@ -284,9 +284,8 @@ namespace Forma.Infrastructure.Migrations
                     b.Property<int?>("Gender")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Goal")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Goal")
+                        .HasColumnType("integer");
 
                     b.Property<double>("Height")
                         .HasColumnType("double precision");

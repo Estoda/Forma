@@ -1,6 +1,6 @@
 ﻿using Forma.Application.DTOs.Auth;
-using Forma.Application.Interfaces;
 using Forma.Application.Exceptions;
+using Forma.Application.Interfaces;
 using Forma.Domain.Entities;
 using Forma.Domain.Interfaces;
 
@@ -11,18 +11,49 @@ public class AuthService : IAuthService
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenGenerator _tokenGenerator;
+    private readonly IOtpService _otpService;
+    private readonly IEmailSender _emailSender;
 
     public AuthService(
         IUserRepository userRepository,
         IPasswordHasher passwordHasher,
-        ITokenGenerator tokenGenerator)
-        => (
-        _userRepository,
-        _passwordHasher,
-        _tokenGenerator) = (userRepository, passwordHasher, tokenGenerator);
+        ITokenGenerator tokenGenerator,
+        IOtpService otpService,
+        IEmailSender emailSender)
+    {
+        _userRepository = userRepository;
+        _passwordHasher = passwordHasher;
+        _tokenGenerator = tokenGenerator;
+        _otpService = otpService;
+        _emailSender = emailSender;
+    }
+
+    public async Task SendOtpAsync(string email)
+    {
+        var existingUser = await _userRepository.GetByEmailAsync(email);
+        if (existingUser is not null)
+            throw new ConflictException("Email is already registered.");
+
+        var otp = _otpService.GenerateOtp(email);
+
+        await _emailSender.SendAsync(
+            email,
+            "Your Forma verification code",
+            $"Your verification code is: {otp}\nIt expires in 10 minutes.");
+    }
+
+    public async Task VerifyOtpAsync(string email, string otp)
+    {
+        var isValid = _otpService.VerifyOtp(email, otp);
+        if (!isValid)
+            throw new UnauthorizedException("Invalid or expired OTP.");
+    }
 
     public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
     {
+        if (!_otpService.IsEmailVerified(request.Email))
+            throw new UnauthorizedException("Email is not verified. Please verify your email first.");
+
         var existingUser = await _userRepository.GetByEmailAsync(request.Email);
         if (existingUser is not null)
             throw new ConflictException("Email is already registered.");
