@@ -10,9 +10,4 @@
     <ProjectReference Include="..\Forma.Domain\Forma.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 </Project>

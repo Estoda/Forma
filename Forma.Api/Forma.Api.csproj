@@ -21,8 +21,4 @@
     <ProjectReference Include="..\Forma.Infrastructure\Forma.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
