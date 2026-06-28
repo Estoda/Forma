@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
   <Project Path="Forma.Api/Forma.Api.csproj" />
   <Project Path="Forma.Application/Forma.Application.csproj" />
   <Project Path="Forma.Domain/Forma.Domain.csproj" />
