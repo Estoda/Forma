@@ -10,7 +10,6 @@ public class RegisterRequest
     public string? Phone { get; set; }
     public Gender? Gender { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public string? ProfilePicture { get; set; } = string.Empty;
     public double Height { get; set; }
     public double Weight { get; set; }
     public Goal Goal { get; set; }

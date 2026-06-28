@@ -66,7 +66,6 @@ public class AuthService : IAuthService
             Phone = request.Phone,
             Gender = request.Gender,
             DateOfBirth = request.DateOfBirth,
-            ProfilePicture = request.ProfilePicture,
             Height = request.Height,
             Weight = request.Weight,
             Goal = request.Goal,

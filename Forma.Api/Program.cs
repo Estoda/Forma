@@ -1,7 +1,11 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Forma.Api.Middleware;
+using Forma.Application.DTOs.Auth;
 using Forma.Application.Interfaces;
 using Forma.Application.Services;
 using Forma.Application.Settings;
+using Forma.Application.Validators.Auth;
 using Forma.Domain.Interfaces;
 using Forma.Infrastructure.Email;
 using Forma.Infrastructure.Persistence;
@@ -41,6 +45,8 @@ public partial class Program
         builder.Services.AddScoped<IEmailSender, MailKitEmailSender>();
         builder.Services.AddScoped<IFileStorageService, LocalFileStorageService>();
         builder.Services.AddScoped<IProfileService, ProfileService>();
+        builder.Services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
+        builder.Services.AddFluentValidationAutoValidation();
 
         builder.Services.AddAuthentication(options =>
         {
